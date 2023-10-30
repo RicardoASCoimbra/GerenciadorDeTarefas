@@ -16,8 +16,12 @@ namespace Tarefas.Infra.Data.Context
         {
 
 
-            //LGPD
+            //Usuario
             modelBuilder.ApplyConfiguration(new UsuarioMap());
+
+            ////Equipes
+            //modelBuilder.ApplyConfiguration(new EquipeColaboradorMap());
+            //modelBuilder.ApplyConfiguration(new ColaboradoresMap());
 
 
             //-------------------------------------------------------------------------------------------------------------------------------------

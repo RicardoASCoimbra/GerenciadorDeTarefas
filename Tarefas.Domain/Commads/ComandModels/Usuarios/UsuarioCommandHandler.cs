@@ -38,7 +38,7 @@ namespace Tarefas.Domain.Commads.ComandModels.Usuarios
                     await _bus.RaiseEvent(new DomainNotification(request.MessageType, "Registro já existente."));
                 else
                 {
-                    Usuario usuario = new Usuario(Guid.NewGuid(), request.Nome, request.Email, request.CPF, request.Perfil, request.Login, request.Ativo);
+                    UsuarioModel usuario = new UsuarioModel(Guid.NewGuid(), request.Nome, request.Email, request.CPF, request.Perfil, request.Login, request.Ativo);
                     string salt = Cryptography.GetSalt();
                     usuario.SetSenha(Cryptography.GetHash(salt, request.CPF), salt);
                     _repository.Add(usuario);
@@ -57,7 +57,7 @@ namespace Tarefas.Domain.Commads.ComandModels.Usuarios
             }
             else
             {
-                Usuario usuarioPrincipal = await _repository.GetById(request.Id);
+                UsuarioModel usuarioPrincipal = await _repository.GetById(request.Id);
                 if (usuarioPrincipal == null)
                     await _bus.RaiseEvent(new DomainNotification(request.MessageType, "O usuário não foi encontrado no banco de dados"));
                 else

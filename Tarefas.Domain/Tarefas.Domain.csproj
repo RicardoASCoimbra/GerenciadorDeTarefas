@@ -17,4 +17,8 @@
     <ProjectReference Include="..\Tarefas.Domain.Core\Tarefas.Domain.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\NovaPasta\" />
+  </ItemGroup>
+
 </Project>

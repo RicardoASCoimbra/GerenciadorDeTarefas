@@ -7,44 +7,44 @@ using Tarefas.Infra.Data.Context;
 
 namespace Tarefas.Infra.Data.Repositories.Usuarios
 {
-    public class UsuarioRepository : RepositoryBase<Usuario>, IUsuarioRepository
+    public class UsuarioRepository : RepositoryBase<UsuarioModel>, IUsuarioRepository
     {
         public UsuarioRepository(TarefaDB context) : base(context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<Usuario>> GetAllUsuarios()
+        public async Task<IEnumerable<UsuarioModel>> GetAllUsuarios()
         {
             return await DbSet.AsNoTracking().ToListAsync();
         }
 
-        public async Task<IEnumerable<Usuario>> GetByLogin(string login)
+        public async Task<IEnumerable<UsuarioModel>> GetByLogin(string login)
         {
-            IQueryable<Usuario> query = DbSet.Where(x => x.Login.ToLower() == login.ToLower());
+            IQueryable<UsuarioModel> query = DbSet.Where(x => x.Login.ToLower() == login.ToLower());
             return await query.AsNoTracking().ToListAsync();
         }
 
-        public async Task<IEnumerable<Usuario>> GetByCpf(string cpf)
+        public async Task<IEnumerable<UsuarioModel>> GetByCpf(string cpf)
         {
             return await DbSet.Where(x => x.CPF.ToLower() == cpf.ToLower() && x.Ativo).AsNoTracking().ToListAsync();
         }
 
-        public async Task<IEnumerable<Usuario>> VerificaDuplicidade(string login, string cpf)
+        public async Task<IEnumerable<UsuarioModel>> VerificaDuplicidade(string login, string cpf)
         {
             var userPorLogin = await GetByLogin(login);
             var userPorCpf = await GetByCpf(cpf);
 
             return userPorCpf.Count() > 0 ? userPorCpf : userPorLogin;
         }
-        public async Task<IEnumerable<Usuario>> GetAllPerfils()
+        public async Task<IEnumerable<UsuarioModel>> GetAllPerfils()
         {
-            return await _context.Set<Usuario>().ToListAsync();
+            return await _context.Set<UsuarioModel>().ToListAsync();
         }
 
-        public async Task<IEnumerable<Usuario>> GetByFilter(string login, TipoDeAcesso? perfil)
+        public async Task<IEnumerable<UsuarioModel>> GetByFilter(string login, TipoDeAcesso? perfil)
         {
-            IQueryable<Usuario> query =
+            IQueryable<UsuarioModel> query =
                 DbSet.Where(x => (string.IsNullOrEmpty(login) || x.Login.ToLower().Contains(login.ToLower()))
                 && (perfil == null || x.Perfil.Equals(perfil.Value)) && !x.Excluido);
 
@@ -52,15 +52,15 @@ namespace Tarefas.Infra.Data.Repositories.Usuarios
         }
 
 
-        public async Task<Usuario> GetByUser(string cpf)
+        public async Task<UsuarioModel> GetByUser(string cpf)
         {
-            return await _context.Set<Usuario>().Where(x => x.CPF == cpf).FirstOrDefaultAsync();
+            return await _context.Set<UsuarioModel>().Where(x => x.CPF == cpf).FirstOrDefaultAsync();
         }
 
 
-        public async Task<Usuario> GetById(Guid id)
+        public async Task<UsuarioModel> GetById(Guid id)
         {
-            return await _context.Set<Usuario>().Where(x => x.Id == id).FirstOrDefaultAsync();
+            return await _context.Set<UsuarioModel>().Where(x => x.Id == id).FirstOrDefaultAsync();
         }
     }
 }

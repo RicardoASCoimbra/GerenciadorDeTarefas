@@ -3,6 +3,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Tarefas.Domain.Commads.Autenticacao;
+using Tarefas.Domain.Commads.ComandModels.Login;
 using Tarefas.Domain.Commads.ComandModels.Usuarios;
 using Tarefas.Domain.Core.Interfaces;
 using Tarefas.Domain.Core.Notifications;
@@ -13,7 +15,9 @@ using Tarefas.Infra.Data.Configuration;
 using Tarefas.Infra.Data.Context;
 using Tarefas.Infra.Data.EventSourcing;
 using Tarefas.Infra.Data.Repositories.Usuarios;
+using Tarefas.Services.AppServices.Login;
 using Tarefas.Services.AppServices.Usuarios;
+using Tarefas.Services.Interfaces.Login;
 using Tarefas.Services.Interfaces.Usuarios;
 
 namespace Tarefas.Infra.IoC
@@ -51,22 +55,33 @@ namespace Tarefas.Infra.IoC
             // Command
             services.AddScoped<IRequestHandler<UsuarioCreateCommand, Unit>, UsuarioCommandHandler>();
             services.AddScoped<IRequestHandler<UsuarioEditCommand, Unit>, UsuarioCommandHandler>();
-            //services.AddScoped<IRequestHandler<AutenticacaoLoginCommand, Unit>, AutenticacaoCommandHandler>();
-            //services.AddScoped<IRequestHandler<AutenticacaoPrimeiroAcessoCommand, Unit>, AutenticacaoCommandHandler>();
+            services.AddScoped<IRequestHandler<AutenticacaoLoginCommand, Unit>, AutenticacaoCommandHandler>();
+            services.AddScoped<IRequestHandler<AutenticacaoPrimeiroAcessoCommand, Unit>, AutenticacaoCommandHandler>();
 
-            //        //---------------------------------------------------------------------------------------------------------------
-            //        ///LOGINPRINCIPAL
-            //        //__________________________________________________________________________________________________
 
-            //        //Gerenciador - Service
-            //        services.AddScoped<ILoginPrincipalAppService, LoginPrincipalAppService>();
+            //---------------------------------------------------------------------------------------------------------------
+            ///LOGIN
+            //__________________________________________________________________________________________________
 
-            //        //Comand
-            //        services.AddScoped<IRequestHandler<AutenticacaoLoginPrincipalCommand, Unit>, AutenticacaoPrincipalCommandHandler>();
-            //        services.AddScoped<IRequestHandler<AutenticacaoPrimeiroAcessoPrincipalCommand, Unit>, AutenticacaoPrincipalCommandHandler>();
+            // Service
+            services.AddScoped<ILoginAppService, LoginAppService>();
 
-            //    }
-            //}
+            //Comand
+            services.AddScoped<IRequestHandler<AuthLoginCommand, Unit>, AulhCommandHandler>();
+            services.AddScoped<IRequestHandler<AuthPrimeiroAcessoCommand, Unit>, AulhCommandHandler>();
+
+            //---------------------------------------------------------------------------------------------------------------
+            ///EQUIPE
+            //__________________________________________________________________________________________________
+
+            ////SERVICE
+            //services.AddScoped<IEquipeColaboradorRepository, EquipeColaboradorRepository>();
+            //services.AddScoped<IEquipesAppService, EquipesAppService>();
+
+            ////COMMAND
+            //services.AddScoped<IRequestHandler<EquipesCreateCommand, Unit>, EquipesCommandHandler>();
+            //services.AddScoped<IRequestHandler<EquipesEditCommand, Unit>, EquipesCommandHandler>();
+
         }
     }
 }

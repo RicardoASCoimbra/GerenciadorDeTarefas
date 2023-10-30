@@ -112,7 +112,6 @@ namespace Tarefas.Web
 
                 app.UseDefaultFiles();
                 app.UseStaticFiles();
-                app.UseHangfireServer();
                 app.UseHangfireDashboard();
             }
 

@@ -9,7 +9,11 @@ namespace Tarefas.Services.AutoMapper
         public DomainToViewModelMappingProfile()
         {
             //Usuário
-            CreateMap<Usuario, UsuarioViewModel>();
+            CreateMap<UsuarioModel, UsuarioViewModel>();
+
+            ////Equipe do colaborador
+            //CreateMap<ColaboradoresModel, ColaboradorViewModel>();
+            //CreateMap<EquipeColaboradorModels, EquipesViewModel>();
 
         }
     }

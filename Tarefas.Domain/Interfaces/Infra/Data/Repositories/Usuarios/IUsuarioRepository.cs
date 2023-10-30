@@ -4,16 +4,16 @@ using Tarefas.Domain.Models.Usuario;
 
 namespace Tarefas.Domain.Interfaces.Infra.Data.Repositories.Usuarios
 {
-    public interface IUsuarioRepository : IRepositoryBase<Usuario>
+    public interface IUsuarioRepository : IRepositoryBase<UsuarioModel>
     {
-        Task<IEnumerable<Usuario>> GetAllUsuarios();
-        Task<IEnumerable<Usuario>> GetByLogin(string login);
-        Task<IEnumerable<Usuario>> GetByCpf(string cpf);
-        Task<IEnumerable<Usuario>> VerificaDuplicidade(string login, string cpf);
-        Task<IEnumerable<Usuario>> GetAllPerfils();
-        Task<IEnumerable<Usuario>> GetByFilter(string login, TipoDeAcesso? perfil);
-        Task<Usuario> GetById(Guid id);
-        Task<Usuario> GetByUser(string cpf);
+        Task<IEnumerable<UsuarioModel>> GetAllUsuarios();
+        Task<IEnumerable<UsuarioModel>> GetByLogin(string login);
+        Task<IEnumerable<UsuarioModel>> GetByCpf(string cpf);
+        Task<IEnumerable<UsuarioModel>> VerificaDuplicidade(string login, string cpf);
+        Task<IEnumerable<UsuarioModel>> GetAllPerfils();
+        Task<IEnumerable<UsuarioModel>> GetByFilter(string login, TipoDeAcesso? perfil);
+        Task<UsuarioModel> GetById(Guid id);
+        Task<UsuarioModel> GetByUser(string cpf);
 
     }
 }

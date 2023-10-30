@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Tarefas.Domain.Commads.ComandModels.Usuarios;
 
-namespace Tarefas.Domain.Validation.Usuarios
+namespace Tarefas.Domain.Validation.ComandModels.Usuarios
 {
     public class UsuarioEditCommandValidation : CommandValidation<UsuarioEditCommand>
     {

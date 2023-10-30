@@ -1,6 +1,6 @@
 ﻿using Tarefas.Domain.Core.Commands;
 using Tarefas.Domain.Enuns;
-using Tarefas.Domain.Validation.Usuarios;
+using Tarefas.Domain.Validation.ComandModels.Usuarios;
 
 namespace Tarefas.Domain.Commads.ComandModels.Usuarios
 {

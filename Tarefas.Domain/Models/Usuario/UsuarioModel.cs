@@ -4,7 +4,7 @@ using Tarefas.Domain.Enuns;
 
 namespace Tarefas.Domain.Models.Usuario
 {
-    public class Usuario : Entity
+    public class UsuarioModel : Entity
     {
         public string Nome { get; set; }
         public string Email { get; set; }
@@ -21,9 +21,9 @@ namespace Tarefas.Domain.Models.Usuario
         public bool Ativo { get; set; }
         public bool PrimeiroAcesso { get; set; }
         public bool Excluido { get; set; }
-        public Usuario() { }
+        public UsuarioModel() { }
 
-        public Usuario(Guid id, string nome, string email, string cpf, TipoDeAcesso tipoDeAcesso, string login, bool ativo)
+        public UsuarioModel(Guid id, string nome, string email, string cpf, TipoDeAcesso tipoDeAcesso, string login, bool ativo)
         {
             this.Id = id;
             this.Nome = nome;

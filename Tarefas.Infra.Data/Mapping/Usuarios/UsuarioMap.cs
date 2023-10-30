@@ -4,9 +4,9 @@ using Tarefas.Domain.Models.Usuario;
 
 namespace Tarefas.Infra.Data.Mapping.Usuarios
 {
-    public class UsuarioMap : IEntityTypeConfiguration<Usuario>
+    public class UsuarioMap : IEntityTypeConfiguration<UsuarioModel>
     {
-        public void Configure(EntityTypeBuilder<Usuario> builder)
+        public void Configure(EntityTypeBuilder<UsuarioModel> builder)
         {
             builder.ToTable("Usuario");
             builder.Property(x => x.Id).IsRequired();
