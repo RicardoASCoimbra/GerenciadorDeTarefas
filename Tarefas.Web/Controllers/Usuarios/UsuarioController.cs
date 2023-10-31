@@ -18,7 +18,10 @@ namespace Tarefas.Web.Controllers.Usuarios
     {
         private readonly IUsuarioAppService _appService;
 
-        public UsuarioController(IUsuarioAppService appService, INotificationHandler<DomainNotification> notifications, IMediatorHandler mediator)
+        public UsuarioController(
+            IUsuarioAppService appService,
+            INotificationHandler<DomainNotification> notifications,
+            IMediatorHandler mediator)
             : base(notifications, mediator)
         {
             _appService = appService;
@@ -42,8 +45,8 @@ namespace Tarefas.Web.Controllers.Usuarios
         }
 
         [HttpPost]
-        //[AllowAnonymous]
-        [ClaimRequirement(Util.ClaimNamePermissao, Util.ClaimAdministrativa)]
+        [AllowAnonymous]
+        //[ClaimRequirement(Util.ClaimNamePermissao, Util.ClaimAdministrativa)]
         [Route("CriarUsuario")]
         public async Task<IActionResult> Post([FromBody] UsuarioViewModel postViewModel)
         {

@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Tarefas.Domain.Models.EquipeColaborador;
 using Tarefas.Domain.Models.Usuario;
+using Tarefas.Services.ViewModels.EquipeColaborador;
 using Tarefas.Services.ViewModels.Usuarios;
 
 namespace Tarefas.Services.AutoMapper
@@ -11,10 +13,8 @@ namespace Tarefas.Services.AutoMapper
             //Usuário
             CreateMap<UsuarioModel, UsuarioViewModel>();
 
-            ////Equipe do colaborador
-            //CreateMap<ColaboradoresModel, ColaboradorViewModel>();
-            //CreateMap<EquipeColaboradorModels, EquipesViewModel>();
-
+            // Galeria
+            CreateMap<EquipeColaboradorModel, EquipeColaboradorViewModel>();
         }
     }
 }
