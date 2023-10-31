@@ -1,16 +1,18 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Tarefas.Domain.Core.Models;
 using Tarefas.Domain.Enuns;
+using Tarefas.Domain.Models.EquipeColaborador;
 
 namespace Tarefas.Domain.Models.Usuario
 {
     public class UsuarioModel : Entity
     {
-        public string Nome { get; set; }
-        public string Email { get; set; }
-        public string CPF { get; set; }
-        public TipoDeFuncao Cargo { get; set; }
-        public TipoDeAcesso Perfil { get; set; }
+        public string Nome { get; private set; }
+        public string Email { get; private set; }
+        public string CPF { get; private set; }
+        public TipoDeFuncao Cargo { get; private set; }
+        public TipoDeAcesso Perfil { get; private set; }
         public string Login { get; set; }
 
         [Column(TypeName = "varchar(200)")]
@@ -21,27 +23,41 @@ namespace Tarefas.Domain.Models.Usuario
 
         public bool Ativo { get; set; }
         public bool PrimeiroAcesso { get; set; }
-        public bool Excluido { get; set; }
+
+        [JsonIgnore]
+        public virtual IEnumerable<EquipeColaboradorModel> EquipeColaborador { get; private set; }
+
         public UsuarioModel() { }
 
-        public UsuarioModel(Guid id, string nome, string email, string cpf, TipoDeAcesso tipoDeAcesso, string login, bool ativo)
+        public UsuarioModel(Guid id, string nome, string email, string cpf, TipoDeFuncao tipoDeFuncao, TipoDeAcesso tipoDeAcesso, string login, bool ativo, List<EquipeColaboradorModel> equipeColaborador)
         {
             this.Id = id;
             this.Nome = nome;
             this.Email = email;
             this.CPF = cpf;
+            this.Cargo = tipoDeFuncao;
             this.Perfil = tipoDeAcesso;
             this.Login = login;
             this.Ativo = ativo;
             this.PrimeiroAcesso = true;
+            this.EquipeColaborador = equipeColaborador;
         }
 
-        public void SetDados(string nome, string email, TipoDeAcesso tipoDeAcesso, bool ativo)
+        public void AdicionarEquipeColaborador(EquipeColaboradorModel equipeColaborador)
+        {
+            var novaColecao = new List<EquipeColaboradorModel>(EquipeColaborador);
+            novaColecao.Add(equipeColaborador);
+            EquipeColaborador = novaColecao;
+        }
+
+        public void SetDados(string nome, string email, TipoDeFuncao tipoDeFuncao, TipoDeAcesso tipoDeAcesso, bool ativo, IEnumerable<EquipeColaboradorModel> equipeColaborador)
         {
             this.Nome = nome;
             this.Email = email;
             this.Ativo = ativo;
+            this.Cargo = tipoDeFuncao;
             this.Perfil = tipoDeAcesso;
+            this.EquipeColaborador = new List<EquipeColaboradorModel>(equipeColaborador);
         }
 
         public void SetSenha(string senha, string salt)
@@ -65,10 +81,6 @@ namespace Tarefas.Domain.Models.Usuario
             this.PrimeiroAcesso = primeiroAcesso;
         }
 
-        public void SetExcluido(bool flag)
-        {
-            Excluido = flag;
-        }
     }
 
 }

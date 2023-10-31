@@ -6,6 +6,7 @@ using Tarefas.Domain.Core.Interfaces;
 using Tarefas.Domain.Core.Notifications;
 using Tarefas.Domain.Enuns;
 using Tarefas.Domain.Interfaces.Infra.Data.Repositories.Usuarios;
+using Tarefas.Domain.Models.Usuario;
 using Tarefas.Services.Interfaces.Usuarios;
 using Tarefas.Services.ViewModels.Usuarios;
 
@@ -86,25 +87,31 @@ namespace Tarefas.Services.AppServices.Usuarios
 
         public async Task<bool> Delete(Guid id)
         {
-            var response = await _repository.GetById(id);
-            if (response != null)
+            var usuario = await _repository.GetById(id);
+            if (usuario != null)
             {
+
                 try
                 {
-                    response.SetExcluido(true);
-                    _repository.Update(response);
-                    await _repository.SaveChangesAsync();
-
+                    await DeleteFisicamente(usuario);
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine("MESSAGE: " + e.Message + "\n INNER: " + e.InnerException);
                     return false;
                 }
+
                 return true;
             }
 
             return false;
+
         }
+        private async Task DeleteFisicamente(UsuarioModel usuario)
+        {
+            _repository.Delete(usuario);
+            await _repository.SaveChangesAsync();
+        }
+
     }
 }

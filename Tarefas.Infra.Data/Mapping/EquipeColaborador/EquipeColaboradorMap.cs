@@ -15,6 +15,9 @@ namespace Tarefas.Infra.Data.Mapping.EquipeColaborador
 
             //PrimaryKey
             builder.HasKey(x => x.Id);
+
+            //Foreing key
+            builder.HasOne(x => x.UsuarioPrincipal).WithMany(y => y.EquipeColaborador).HasForeignKey(x => x.IdUsuario);
         }
     }
 }

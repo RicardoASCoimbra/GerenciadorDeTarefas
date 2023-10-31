@@ -16,7 +16,7 @@ namespace Tarefas.Infra.Data.Repositories.Usuarios
 
         public async Task<IEnumerable<UsuarioModel>> GetAllUsuarios()
         {
-            return await DbSet.AsNoTracking().ToListAsync();
+            return await DbSet.AsNoTracking().Include(q => q.EquipeColaborador).ToListAsync();
         }
 
         public async Task<IEnumerable<UsuarioModel>> GetByLogin(string login)
@@ -46,7 +46,7 @@ namespace Tarefas.Infra.Data.Repositories.Usuarios
         {
             IQueryable<UsuarioModel> query =
                 DbSet.Where(x => (string.IsNullOrEmpty(login) || x.Login.ToLower().Contains(login.ToLower()))
-                && (perfil == null || x.Perfil.Equals(perfil.Value)) && !x.Excluido);
+                && (perfil == null || x.Perfil.Equals(perfil.Value)));
 
             return await query.AsNoTracking().ToListAsync();
         }
@@ -54,13 +54,17 @@ namespace Tarefas.Infra.Data.Repositories.Usuarios
 
         public async Task<UsuarioModel> GetByUser(string cpf)
         {
-            return await _context.Set<UsuarioModel>().Where(x => x.CPF == cpf).FirstOrDefaultAsync();
+            return await _context.Set<UsuarioModel>().Where(x => x.CPF == cpf).Include(q => q.EquipeColaborador).FirstOrDefaultAsync();
         }
 
 
         public async Task<UsuarioModel> GetById(Guid id)
         {
-            return await _context.Set<UsuarioModel>().Where(x => x.Id == id).FirstOrDefaultAsync();
+            //return await _context.Set<UsuarioModel>().Where(x => x.Id == id).FirstOrDefaultAsync();
+
+            IQueryable<UsuarioModel> query = DbSet.Where(x => x.Id.Equals(id)).Include(q => q.EquipeColaborador);
+
+            return await query.AsNoTracking().FirstOrDefaultAsync();
         }
     }
 }

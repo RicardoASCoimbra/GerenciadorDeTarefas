@@ -30,6 +30,12 @@ namespace Tarefas.Domain.Validation.ComandModels.Usuarios
             RuleFor(x => x.Senha)
                 .MaximumLength(50)
                 .NotEmpty().WithMessage("A Senha do usuário é obrigatória!");
+
+            RuleForEach(x => x.EquipeColaborador)
+              //.Must(y => y.PossuiVideo).WithMessage("Obrigatório selecionar um item")
+              .Must(y => !String.IsNullOrEmpty(y.NomeEquipe)).WithMessage("O Titulo do vídeo é obrigatório!")
+              .Must(y => !String.IsNullOrEmpty(y.Descricao)).WithMessage("O Link do vídeo é obrigatório!");
+
         }
     }
 }

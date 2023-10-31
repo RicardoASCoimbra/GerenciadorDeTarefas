@@ -3,23 +3,21 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tarefas.Domain.Core.Interfaces;
 using Tarefas.Domain.Core.Notifications;
-using Tarefas.Services.Interfaces.EquipeColaborador;
-using Tarefas.Services.ViewModels.EquipeColaborador;
+using Tarefas.Services.Interfaces.Tarefa;
+using Tarefas.Services.ViewModels.Tarefa;
 using Tarefas.Web.Configurations;
 using Tarefas.Web.Configurations.Authorization;
 
-namespace Tarefas.Web.Controllers.EquipeColaborador
+namespace Tarefas.Web.Controllers
 {
     [Route("v1/[controller]")]
     [ApiController]
     [Authorize]
-    public class EquipeColaboradorController : ApiController
+    public class TarefasController : ApiController
     {
-        private readonly IEquipeColaboradorAppService _appService;
-        public EquipeColaboradorController(
-            IEquipeColaboradorAppService appService,
-            INotificationHandler<DomainNotification> notifications,
-            IMediatorHandler mediator) : base(notifications, mediator)
+        private readonly ITarefaAppService _appService;
+
+        public TarefasController(ITarefaAppService appService, INotificationHandler<DomainNotification> notifications, IMediatorHandler mediator) : base(notifications, mediator)
         {
             _appService = appService;
         }
@@ -47,10 +45,10 @@ namespace Tarefas.Web.Controllers.EquipeColaborador
         }
 
         [HttpPut]
-        [Route("AlterarEquipe")]
-        //[AllowAnonymous]  
+        [Route("{id:guid}")]
+        //[AllowAnonymous]
         [ClaimRequirement(Util.ClaimNamePermissao, Util.ClaimAdministrativa)]
-        public async Task<IActionResult> Put([FromBody] EquipeColaboradorViewModel postViewModel)
+        public async Task<IActionResult> Put([FromBody] TarefaViewModel postViewModel)
         {
             try
             {
@@ -70,23 +68,22 @@ namespace Tarefas.Web.Controllers.EquipeColaborador
             }
         }
 
-        [HttpPost]
-        [Route("CriarEquipe")]
-        //[ClaimRequirement(Util.ClaimNamePermissao, Util.ClaimAdministrativa)]
+
+        [HttpGet]
+        [Route("GetAll")]
         [AllowAnonymous]
-        public async Task<IActionResult> Post([FromBody] EquipeColaboradorViewModel postViewModel)
+        //[ClaimRequirement(Util.ClaimNamePermissao, Util.ClaimTodosPerfis)]
+        public async Task<IActionResult> GetAll()
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
                     NotifyModelStateErrors();
-                    return BadRequest(ModelState);
+                    return Response();
                 }
-
-                await _appService.Create(postViewModel);
-
-                return NoContent(); // Código 204 No Content para uma criação bem-sucedida.
+                var query = await _appService.GetAll();
+                return Response(query);
             }
             catch (Exception ex)
             {
@@ -94,7 +91,34 @@ namespace Tarefas.Web.Controllers.EquipeColaborador
             }
         }
 
-        [HttpDelete("{id:guid}")]
+
+        [HttpPost]
+        //[Route("tarefas")]
+        // [ClaimRequirement(Util.ClaimNamePermissao, Util.ClaimAdministrativa)]
+        [AllowAnonymous]
+        public async Task<IActionResult> Post([FromBody] TarefaViewModel postViewModel)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    NotifyModelStateErrors();
+                    return Response(postViewModel);
+                }
+
+                await _appService.Create(postViewModel);
+
+                return Response();
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
+
+        [HttpDelete]
+        [Route("{id:guid}")]
         //[AllowAnonymous]
         [ClaimRequirement(Util.ClaimNamePermissao, Util.ClaimTodosPerfis)]
         public async Task<IActionResult> Delete(Guid id)
@@ -117,12 +141,11 @@ namespace Tarefas.Web.Controllers.EquipeColaborador
             }
         }
 
-
         [HttpGet]
         [Route("GetByFilter")]
         [AllowAnonymous]
         //[ClaimRequirement(Util.ClaimNamePermissao, Util.ClaimTodosPerfis)]
-        public async Task<IActionResult> GetByFilter(string nome, string descricao)
+        public async Task<IActionResult> GetByFilter(string nomeUsuario, string sistemaOrigem)
         {
             try
             {
@@ -131,32 +154,10 @@ namespace Tarefas.Web.Controllers.EquipeColaborador
                     NotifyModelStateErrors();
                     return Response();
                 }
-                return Response(await _appService.GetByFilter(nome, descricao));
+                return Response(await _appService.GetByFilter(nomeUsuario, sistemaOrigem));
             }
             catch (Exception ex)
             {
-                return HandleException(ex);
-            }
-        }
-
-        [HttpGet]
-        [Route("GetEquipe")]
-        [AllowAnonymous]
-        //[ClaimRequirement(Util.ClaimNamePermissao, Util.ClaimTodosPerfis)]
-        public async Task<IActionResult> GetEquipe(string nome)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    NotifyModelStateErrors();
-                    return Response();
-                }
-                return Response(await _appService.GetEquipe(nome));
-            }
-            catch (Exception ex)
-            {
-
                 return HandleException(ex);
             }
         }

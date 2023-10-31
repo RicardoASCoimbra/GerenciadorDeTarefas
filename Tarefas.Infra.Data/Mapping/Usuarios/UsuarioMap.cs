@@ -19,7 +19,9 @@ namespace Tarefas.Infra.Data.Mapping.Usuarios
             builder.Property(t => t.Ativo).IsRequired();
             builder.Property(t => t.PrimeiroAcesso).IsRequired();
             builder.Property(t => t.Perfil).IsRequired();
-            builder.Property(x => x.Excluido).HasDefaultValue(false);
+            builder.Property(t => t.Cargo);
+
+            //PrimaryKey
             builder.HasKey(x => x.Id);
         }
     }

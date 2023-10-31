@@ -2,9 +2,9 @@
 {
     public class EquipeColaboradorViewModel
     {
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; }
         public string NomeEquipe { get; set; }
         public string Descricao { get; set; }
-
+        public Guid IdUsuario { get; set; }
     }
 }

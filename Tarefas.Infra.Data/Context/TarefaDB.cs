@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Tarefas.Infra.Data.Mapping.EquipeColaborador;
+using Tarefas.Infra.Data.Mapping.Tarefa;
 using Tarefas.Infra.Data.Mapping.Usuarios;
 
 namespace Tarefas.Infra.Data.Context
@@ -19,9 +20,10 @@ namespace Tarefas.Infra.Data.Context
 
             //Usuario
             modelBuilder.ApplyConfiguration(new UsuarioMap());
-
-            //EquipeColaborador
             modelBuilder.ApplyConfiguration(new EquipeColaboradorMap());
+
+            //TarefaMap
+            modelBuilder.ApplyConfiguration(new TarefaMap());
 
 
             //-------------------------------------------------------------------------------------------------------------------------------------
