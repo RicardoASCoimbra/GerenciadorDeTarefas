@@ -119,8 +119,8 @@ namespace Tarefas.Web.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
-        //[AllowAnonymous]
-        [ClaimRequirement(Util.ClaimNamePermissao, Util.ClaimTodosPerfis)]
+        [AllowAnonymous]
+        ////[ClaimRequirement(Util.ClaimNamePermissao, Util.ClaimTodosPerfis)]
         public async Task<IActionResult> Delete(Guid id)
         {
             try
@@ -145,7 +145,7 @@ namespace Tarefas.Web.Controllers
         [Route("GetByFilter")]
         [AllowAnonymous]
         //[ClaimRequirement(Util.ClaimNamePermissao, Util.ClaimTodosPerfis)]
-        public async Task<IActionResult> GetByFilter(string nomeUsuario, string sistemaOrigem)
+        public async Task<IActionResult> GetByFilter(string nome, string responsavel)
         {
             try
             {
@@ -154,7 +154,7 @@ namespace Tarefas.Web.Controllers
                     NotifyModelStateErrors();
                     return Response();
                 }
-                return Response(await _appService.GetByFilter(nomeUsuario, sistemaOrigem));
+                return Response(await _appService.GetByFilter(nome, responsavel));
             }
             catch (Exception ex)
             {
