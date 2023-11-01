@@ -8,7 +8,6 @@
 # dependencies
 /node_modules
 /wwwroot
-/Migrations
 
 # IDEs and editors
 /.idea
@@ -16,7 +15,7 @@
 .classpath
 .c9/
 *.launch
-.settings/
+.settings
 *.sublime-workspace
 
 # IDE - VSCode
@@ -39,7 +38,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-Migrations/
-/Migrations
+
+# Ignora a pasta Migrations
+Migrations
 
 web.config
