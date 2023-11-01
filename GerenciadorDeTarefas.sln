@@ -11,19 +11,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Domain", "3. Domain", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Infraestructure", "4. Infraestructure", "{68A4E214-E846-4869-9CB2-160EF9344031}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarefas.Infra.IoC", "Tarefas.Infra.IoC\Tarefas.Infra.IoC.csproj", "{B145B417-D838-4240-9C35-FEE84086730E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tarefas.Infra.IoC", "Tarefas.Infra.IoC\Tarefas.Infra.IoC.csproj", "{B145B417-D838-4240-9C35-FEE84086730E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarefas.Infra.Data", "Tarefas.Infra.Data\Tarefas.Infra.Data.csproj", "{6E3BB158-DF78-4D0D-88F6-580AD1807E64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tarefas.Infra.Data", "Tarefas.Infra.Data\Tarefas.Infra.Data.csproj", "{6E3BB158-DF78-4D0D-88F6-580AD1807E64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarefas.Infra.Bus", "Tarefas.Infra.Bus\Tarefas.Infra.Bus.csproj", "{A3A9E93F-29C2-49E4-AF63-6D492B3414C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tarefas.Infra.Bus", "Tarefas.Infra.Bus\Tarefas.Infra.Bus.csproj", "{A3A9E93F-29C2-49E4-AF63-6D492B3414C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarefas.Domain", "Tarefas.Domain\Tarefas.Domain.csproj", "{E5498C93-88F5-4553-8DF3-703D32A991EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tarefas.Domain", "Tarefas.Domain\Tarefas.Domain.csproj", "{E5498C93-88F5-4553-8DF3-703D32A991EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarefas.Domain.Core", "Tarefas.Domain.Core\Tarefas.Domain.Core.csproj", "{D25E8A9E-2F18-4328-8940-FB318CE304BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tarefas.Domain.Core", "Tarefas.Domain.Core\Tarefas.Domain.Core.csproj", "{D25E8A9E-2F18-4328-8940-FB318CE304BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarefas.Services", "Tarefas.Services\Tarefas.Services.csproj", "{8B10FC0A-FAB3-4687-B53B-1A2896FF8030}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tarefas.Services", "Tarefas.Services\Tarefas.Services.csproj", "{8B10FC0A-FAB3-4687-B53B-1A2896FF8030}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarefas.Web", "Tarefas.Web\Tarefas.Web.csproj", "{5A9F194D-9A0D-4011-BED7-71FD621C3C4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tarefas.Web", "Tarefas.Web\Tarefas.Web.csproj", "{5A9F194D-9A0D-4011-BED7-71FD621C3C4E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 . Test", "5 . Test", "{8758CAC1-E85B-4852-A36A-B968C8CE6721}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarefas.Tests", "Tarefas.Tests\Tarefas.Tests.csproj", "{3BFF5A45-14C0-4014-AB09-01FFFF07E022}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +63,10 @@ Global
 		{5A9F194D-9A0D-4011-BED7-71FD621C3C4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A9F194D-9A0D-4011-BED7-71FD621C3C4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A9F194D-9A0D-4011-BED7-71FD621C3C4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BFF5A45-14C0-4014-AB09-01FFFF07E022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BFF5A45-14C0-4014-AB09-01FFFF07E022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BFF5A45-14C0-4014-AB09-01FFFF07E022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BFF5A45-14C0-4014-AB09-01FFFF07E022}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +79,7 @@ Global
 		{D25E8A9E-2F18-4328-8940-FB318CE304BC} = {6695E9AF-4B78-49F0-8C41-6529C3AA25D4}
 		{8B10FC0A-FAB3-4687-B53B-1A2896FF8030} = {0340C660-9FCC-4342-B855-F65F51B1C229}
 		{5A9F194D-9A0D-4011-BED7-71FD621C3C4E} = {87D8CD8D-6978-4C33-B2FA-2796FBC0E99C}
+		{3BFF5A45-14C0-4014-AB09-01FFFF07E022} = {8758CAC1-E85B-4852-A36A-B968C8CE6721}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A537A60C-C781-48B8-8C45-555B1343EDAD}

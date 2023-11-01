@@ -19,9 +19,7 @@ namespace Tarefas.Services.AppServices.Tarefa
         private readonly DomainNotificationHandler _notifications;
         private readonly ITarefaRepository _repository;
 
-
-        public TarefaAppService(IMediatorHandler bus, IMapper mapper, INotificationHandler<DomainNotification> notifications,
-            ITarefaRepository repository, IHttpContextAccessor httpContext)
+        public TarefaAppService(IMediatorHandler bus, IMapper mapper, INotificationHandler<DomainNotification> notifications, ITarefaRepository repository, IHttpContextAccessor httpContext)
         {
             _bus = bus;
             _mapper = mapper;
@@ -30,19 +28,24 @@ namespace Tarefas.Services.AppServices.Tarefa
             _httpContext = httpContext;
         }
 
-        public async Task Create(TarefaViewModel aceite)
+        public async Task<TarefaViewModel> Create(TarefaViewModel aceite)
         {
             TarefaCreateCommand command = _mapper.Map<TarefaCreateCommand>(aceite);
-            command.UsuarioRequerenteId = Guid.Parse(_httpContext.HttpContext.User.Claims.Where(x => x.Type == "UserId").FirstOrDefault().Value);
+            //command.UsuarioRequerenteId = Guid.Parse(_httpContext.HttpContext.User.Claims.Where(x => x.Type == "UserId").FirstOrDefault().Value);
             await _bus.SendCommand(command);
+
+            // Você pode mapear o resultado do comando para um objeto TarefaViewModel aqui, se necessário.
+
+            return aceite; // ou retorne o objeto apropriado, dependendo da lógica do seu aplicativo.
         }
 
         public async Task Update(TarefaViewModel aceite)
         {
             TarefaEditCommand command = _mapper.Map<TarefaEditCommand>(aceite);
-            command.UsuarioRequerenteId = Guid.Parse(_httpContext.HttpContext.User.Claims.Where(x => x.Type == "UserId").FirstOrDefault().Value);
+            //command.UsuarioRequerenteId = Guid.Parse(_httpContext.HttpContext.User.Claims.Where(x => x.Type == "UserId").FirstOrDefault().Value);
             await _bus.SendCommand(command);
         }
+
         public async Task<bool> Delete(Guid id)
         {
             var task = await _repository.GetById(id);
@@ -62,31 +65,30 @@ namespace Tarefas.Services.AppServices.Tarefa
             }
 
             return false;
-
         }
+
         private async Task DeleteFisicamente(TarefaModel task)
         {
             _repository.Delete(task);
             await _repository.SaveChangesAsync();
         }
 
-        public async Task<object> GetById(Guid id)
+        public async Task<TarefaViewModel> GetById(Guid id)
         {
-            var task = (await _repository.GetById(id));
+            var task = await _repository.GetById(id);
             return _mapper.Map<TarefaViewModel>(task);
         }
 
         public async Task<IEnumerable<TarefaViewModel>> GetAll()
         {
-            var aceites = (await _repository.GetAll());
+            var aceites = await _repository.GetAll();
             return _mapper.Map<IEnumerable<TarefaViewModel>>(aceites);
         }
 
         public async Task<IEnumerable<TarefaViewModel>> GetByFilter(string nome, string responsavel)
         {
-            var response = (await _repository.GetByFilter(nome, responsavel));
-            return _mapper.ProjectTo<TarefaViewModel>(response.AsQueryable());
+            var response = await _repository.GetByFilter(nome, responsavel);
+            return _mapper.Map<IEnumerable<TarefaViewModel>>(response);
         }
-
     }
 }
