@@ -9,7 +9,7 @@ Este é um projeto incrível que faz coisas incríveis.
 
 #### Para a configuração do banco de dados via Migration
 
- No seu "appsettings.Development.json", altere o "Server" apontando para seu servidor SQL SERVER.
+1. No seu "appsettings.Development.json", altere o "Server" apontando para seu servidor SQL SERVER.
 2. Em seu banco SQL SERVER, crie um banco com o nome de "TaskDB".
 3. Abra o "Console de Gerenciador de Pacotes", selecione o Projeto Padrão "4.Infraestructure\Tarefa.Infra.Data" e rode o "add-migration InitialDB".
 4. Após rodar o migration, rode o "update-database" para criar o Banco de dados.
